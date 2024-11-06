@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-hello-deployment
+spec:
+  replicas: 1  # Number of pod replicas
+  selector:
+    matchLabels:
+      app: node-hello  # Label to match with the service selector
+  template:
+    metadata:
+      labels:
+        app: node-hello  # Label applied to pods created by this deployment
+    spec:
+      containers:
+        - name: node-hello
+          image: thejasbp/nodejsexam:v2  # Replace with your actual image and tag
+          ports:
+            - containerPort: 3000  # The port your app is exposed on
+          env:
+            - name: NODE_ENV
+              value: "production"  # Optional: Set environment variable
