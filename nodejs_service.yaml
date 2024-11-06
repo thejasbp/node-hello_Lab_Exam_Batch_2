@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-hello-service
+spec:
+  selector:
+    app: node-hello  # This selector will match the pods created by the Deployment
+  ports:
+    - protocol: TCP
+      port: 80  # Exposed port for service access
+      targetPort: 3000  # The internal container port your app is listening on
+  type: LoadBalancer  # Change to NodePort for local environments
