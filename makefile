@@ -18,7 +18,7 @@ run: install
 # Run tests
 test: install
 	@echo "Running tests..."
-	npm test || echo "Some tests failed. Please review."
+	npm test 
 
 # Lint (code review)
 lint: install
