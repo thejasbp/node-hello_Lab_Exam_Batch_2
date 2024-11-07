@@ -1,24 +1,24 @@
 const assert = require('assert');
-const http = require('http');  // Add this for making HTTP requests
-const app = require('../index');  // Ensure this path is correct
+const http = require('http');
+const request = require('request'); // Include request if not already imported
+const app = require('../index');
+let server;
 
 describe('App Tests', function () {
-  let server;
-
-  // Start the server before the tests
   before(function (done) {
-    server = app.listen(3000, done);
-  });
-
-  // Close the server after the tests
-  after(function (done) {
-    server.close(done);
+    // Start the server on a different port for testing
+    server = http.createServer(app);
+    server.listen(3001, done);
   });
 
   it('should return 200 for the home route', function (done) {
-    http.get('http://localhost:3000', function (response) {
+    request('http://localhost:3001', function (error, response, body) {
       assert.equal(response.statusCode, 200);
       done();
     });
+  });
+
+  after(function (done) {
+    server.close(done); // Ensure server is closed after tests
   });
 });
